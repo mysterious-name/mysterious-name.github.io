@@ -141,10 +141,44 @@
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
         <h1 id="OO-Unit1阶段总结"><a href="#OO-Unit1阶段总结" class="headerlink" title="OO Unit1阶段总结"></a>OO Unit1阶段总结</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在OO课程第一个大项目中，我们聚焦于“<strong>表达式计算</strong>”这一专题，并在三次迭代中逐步完善我们的项目，添加新的功能。在这个过程中体会“<strong>面向对象</strong>”的设计思想，进一步提高自己的代码质量和水平。  </p>
-<h2 id="程序概况"><a href="#程序概况" class="headerlink" title="程序概况"></a>程序概况</h2><p>先上本人项目中<strong>各个类的数据</strong>、<strong>总体的类图</strong>以及<strong>各个方法的复杂度</strong>。<br><img src="https://img-blog.csdnimg.cn/direct/6b41f5159f534935a1aa182f29cf3a47.png#pic_center" alt="各个类的数据量概况"><br><img src="https://img-blog.csdnimg.cn/direct/433e265d13e54520a84225b53f4bc236.png#pic_center" alt="简略的类图"><br>由于我在动手开始写代码时并没有参考课程组的代码，因此我的项目架构和其他同学的架构也许区别较大。<br><img src="https://img-blog.csdnimg.cn/direct/d6b82385bd1b46dbbf00790abb88b189.png#pic_center" alt="方法复杂度"><br>由于方法数目过多，这里我只给出了<strong>数据表现较差的几个方法</strong>的数据。其中前三个方法分别为标准化输出，解析表达式，简化指数函数。这三个函数在实现上<strong>只能通过大量的if语句实现分支控制</strong>，因此数据表现较差。</p>
+<h2 id="程序概况"><a href="#程序概况" class="headerlink" title="程序概况"></a>程序概况</h2><p>先上本人项目中<strong>各个类的数据</strong>、<strong>总体的类图</strong>以及<strong>各个方法的复杂度</strong>。  </p>
+
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/03/24/pNEWpl2l.png" alt="各个类的数据量概况" loading="lazy" />
+      <figcaption>各个类的数据量概况</figcaption>
+    </figure>
+  
+
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/03/24/OJzQe7FH.png" alt="总体类图" loading="lazy" />
+      <figcaption>总体类图</figcaption>
+    </figure>
+  
+<p>由于我在动手开始写代码时并没有参考课程组的代码，因此我的项目架构和其他同学的架构也许区别较大。  </p>
+
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/03/24/V8PnrTSt.png" alt="方法复杂度" loading="lazy" />
+      <figcaption>方法复杂度</figcaption>
+    </figure>
+  
+<p>由于方法数目过多，这里我只给出了<strong>数据表现较差的几个方法</strong>的数据。其中前三个方法分别为标准化输出，解析表达式，简化指数函数。这三个函数在实现上<strong>只能通过大量的if语句实现分支控制</strong>，因此数据表现较差。</p>
 <h3 id="表达式解析方面"><a href="#表达式解析方面" class="headerlink" title="表达式解析方面"></a>表达式解析方面</h3><p>表达式解析由三个类负责。它们分别是<strong>Token</strong>类，<strong>Lexer</strong>类以及<strong>Parser</strong>类。<br>其中，Token类表示<strong>输入字符串中进行解析的最小单元</strong>，例如加号”+”，变量”x”，常数”123”，自定义函数标志”f”，左括号“(”，求导因子”dx”等。<br>Lexer类则负责<strong>具体的解析过程</strong>，它接受一个字符串类型的输入，并以此形成一个Token的列表。<br>Parser类负责<strong>进一步的对表达式，项，因子的识别</strong>。它接受一个Lexer类型的对象作为输入。调用者可以通过”getExpr”方法获取解析后的表达式。</p>
-<h3 id="表达式计算方面"><a href="#表达式计算方面" class="headerlink" title="表达式计算方面"></a>表达式计算方面</h3><p>如类图所示，<strong>Expr</strong>类中具有ArrayList&lt;Term&gt;类型的属性terms，表示表达式中的各个项。<br><strong>Term</strong>类中具有属性ArrayList&lt;Factor&gt;类型的属性Factors，表示项中的各个因子。<br><strong>Factor</strong>为一个接口，其中实现的方法如下<br><img src="https://img-blog.csdnimg.cn/direct/e453a99cc8a24432a6cbdb69251c96d2.png#pic_center" alt="Factor类概况"><br>共有<strong>Num，Var，Expr，Exp，Func</strong>五个类实现了这个接口，分别表示<strong>常数，变量，表达式，指数函数，自定义函数</strong>。  </p>
-<h3 id="个人分析"><a href="#个人分析" class="headerlink" title="个人分析"></a>个人分析</h3><p>由于我个人认为<strong>计算</strong>这一任务应当是由客观主体完成的，而不是某个Factor的固有属性，因此我将创建了类<strong>Cal</strong>，并将所有的<strong>计算方法</strong>与<strong>计算的流程控制</strong>都放在了这个类中。这是我Cal类的代码量独占鳌头的原因，也是我的架构与其他许多同学不同的根本所在。<br>这样的设计导致我的项目内聚和耦合程度较低，每当加入了新的计算需求时我都需要在Cal类中新建一个计算方法，并对各个类型不同的Factor设计出一个独自的计算方法。如下图所示<br><img src="https://img-blog.csdnimg.cn/direct/e3e9f55ff1a24aa4813670b78e6fe9b6.png#pic_center" alt="计算方法示例"><br>现在重新回顾我的代码，我认为其他许多同学的“<strong>将计算抽象为Factor对象的方法</strong>”的设计比较好，可读性与可拓展性都比较高。<del>主要是hw1完成后，想着本来也就三次迭代，就懒地改架构了</del><br>但我认为这样的设计也有一定的优点，那就是主要都在Cal.java文件中进行项目迭代，定位Bug和新增需求比较方便。</p>
+<h3 id="表达式计算方面"><a href="#表达式计算方面" class="headerlink" title="表达式计算方面"></a>表达式计算方面</h3><p>如类图所示，<strong>Expr</strong>类中具有ArrayList&lt;Term&gt;类型的属性terms，表示表达式中的各个项。<br><strong>Term</strong>类中具有属性ArrayList&lt;Factor&gt;类型的属性Factors，表示项中的各个因子。<br><strong>Factor</strong>为一个接口，其中实现的方法如下  </p>
+
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/03/24/L288qUis.png" alt="Factor接口" loading="lazy" />
+      <figcaption>Factor接口</figcaption>
+    </figure>
+  
+<p>共有<strong>Num，Var，Expr，Exp，Func</strong>五个类实现了这个接口，分别表示<strong>常数，变量，表达式，指数函数，自定义函数</strong>。  </p>
+<h3 id="个人分析"><a href="#个人分析" class="headerlink" title="个人分析"></a>个人分析</h3><p>由于我个人认为<strong>计算</strong>这一任务应当是由客观主体完成的，而不是某个Factor的固有属性，因此我将创建了类<strong>Cal</strong>，并将所有的<strong>计算方法</strong>与<strong>计算的流程控制</strong>都放在了这个类中。这是我Cal类的代码量独占鳌头的原因，也是我的架构与其他许多同学不同的根本所在。<br>这样的设计导致我的项目内聚和耦合程度较低，每当加入了新的计算需求时我都需要在Cal类中新建一个计算方法，并对各个类型不同的Factor设计出一个独自的计算方法。如下图所示</p>
+
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/03/24/Dt4L6sUy.png" alt="方法示例" loading="lazy" />
+      <figcaption>方法示例</figcaption>
+    </figure>
+  
+<p>现在重新回顾我的代码，我认为其他许多同学的“<strong>将计算抽象为Factor对象的方法</strong>”的设计比较好，可读性与可拓展性都比较高。<del>主要是hw1完成后，想着本来也就三次迭代，就懒地改架构了</del><br>但我认为这样的设计也有一定的优点，那就是主要都在Cal.java文件中进行项目迭代，定位Bug和新增需求比较方便。</p>
 <h2 id="程序bug分析"><a href="#程序bug分析" class="headerlink" title="程序bug分析"></a>程序bug分析</h2><p>由于本人在每次作业完成后都会与他人合作开发评测机，并使用该评测机对项目进行大量测试，因此实际上在强测和互测阶段出现的Bug并不多，这里我将我在评测过程中遇见的Bug和在强测中遭遇的Bug进行统一分析。  </p>
 <h3 id="深浅拷贝产生的Bug"><a href="#深浅拷贝产生的Bug" class="headerlink" title="深浅拷贝产生的Bug"></a>深浅拷贝产生的Bug</h3><p>在本次项目的三次迭代中，因深浅拷贝产生的Bug应该占据了所有Bug的百分之八十以上，而且此类Bug非常的“玄学”（？）。经常出现的情况就是：我在某个方法中改变了某个对象的属性，但是这一改变却导致某个看似与其八竿子打不着的对象的属性发生了变化，从而导致程序的崩溃或者输出错误。然而我在hw2中通过对部分方法进行重构很大程度上解决了这个问题，参见下文的项目迭代分析。</p>
 <h3 id="exp括号层数产生的Bug"><a href="#exp括号层数产生的Bug" class="headerlink" title="exp括号层数产生的Bug"></a>exp括号层数产生的Bug</h3><p>在第二次迭代中，我需要实现指数函数，其格式为exp((Expr))或者exp(Factor)，当exp内部为表达式时需要两层括号，而为因子时可以只用一层括号。出于对性能的追求，我在Exp类中精心设计了termsIsExpr()方法，以此判断某个指数函数的terms属性中是否是单个的因子。然而，由于本人对指导书的阅读不够仔细（<del>加之对自己的数学直觉过于自信</del>），我认为某个因子之前加一个负号“-”并不影响其作为一个因子。然而事实并非如此：除了常数外，其他的因子前为负号时均应当视作一个表达式。这导致我在hw2的强测中一个点出错，并在互测中取得了被hack14次的光辉战绩。</p>

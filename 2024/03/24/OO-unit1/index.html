@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+
+  
+
+  
+
+  
+    <meta name="author" content="mysterious-name">
+  
+
+  
+
+  
+
+  <title>OO_unit1 | 谜之取名</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  <!--mathjax latex数学公式显示支持-->
+  
+  
+
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://img2.imgtp.com/2024/03/24/eLFeb0N9.png)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          谜之取名
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">OO_unit1</h1>
+          <h2 class="title-sub-wrap">
+            <strong>mysterious-name</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-03-24T08:40:54.000Z" itemprop="datePublished">2024-03-24</time>
+          </h2>
+          
+          
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/%E5%AD%A6%E4%B9%A0/">📒 学习</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/%E5%AD%A6%E4%B9%A0/">🏷️ 学习</a></li>
+  
+    <li><a href="/tags/OO/">🏷️ OO</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="OO-Unit1阶段总结"><a href="#OO-Unit1阶段总结" class="headerlink" title="OO Unit1阶段总结"></a>OO Unit1阶段总结</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在OO课程第一个大项目中，我们聚焦于“<strong>表达式计算</strong>”这一专题，并在三次迭代中逐步完善我们的项目，添加新的功能。在这个过程中体会“<strong>面向对象</strong>”的设计思想，进一步提高自己的代码质量和水平。  </p>
+<h2 id="程序概况"><a href="#程序概况" class="headerlink" title="程序概况"></a>程序概况</h2><p>先上本人项目中<strong>各个类的数据</strong>、<strong>总体的类图</strong>以及<strong>各个方法的复杂度</strong>。<br><img src="https://img-blog.csdnimg.cn/direct/6b41f5159f534935a1aa182f29cf3a47.png#pic_center" alt="各个类的数据量概况"><br><img src="https://img-blog.csdnimg.cn/direct/433e265d13e54520a84225b53f4bc236.png#pic_center" alt="简略的类图"><br>由于我在动手开始写代码时并没有参考课程组的代码，因此我的项目架构和其他同学的架构也许区别较大。<br><img src="https://img-blog.csdnimg.cn/direct/d6b82385bd1b46dbbf00790abb88b189.png#pic_center" alt="方法复杂度"><br>由于方法数目过多，这里我只给出了<strong>数据表现较差的几个方法</strong>的数据。其中前三个方法分别为标准化输出，解析表达式，简化指数函数。这三个函数在实现上<strong>只能通过大量的if语句实现分支控制</strong>，因此数据表现较差。</p>
+<h3 id="表达式解析方面"><a href="#表达式解析方面" class="headerlink" title="表达式解析方面"></a>表达式解析方面</h3><p>表达式解析由三个类负责。它们分别是<strong>Token</strong>类，<strong>Lexer</strong>类以及<strong>Parser</strong>类。<br>其中，Token类表示<strong>输入字符串中进行解析的最小单元</strong>，例如加号”+”，变量”x”，常数”123”，自定义函数标志”f”，左括号“(”，求导因子”dx”等。<br>Lexer类则负责<strong>具体的解析过程</strong>，它接受一个字符串类型的输入，并以此形成一个Token的列表。<br>Parser类负责<strong>进一步的对表达式，项，因子的识别</strong>。它接受一个Lexer类型的对象作为输入。调用者可以通过”getExpr”方法获取解析后的表达式。</p>
+<h3 id="表达式计算方面"><a href="#表达式计算方面" class="headerlink" title="表达式计算方面"></a>表达式计算方面</h3><p>如类图所示，<strong>Expr</strong>类中具有ArrayList&lt;Term&gt;类型的属性terms，表示表达式中的各个项。<br><strong>Term</strong>类中具有属性ArrayList&lt;Factor&gt;类型的属性Factors，表示项中的各个因子。<br><strong>Factor</strong>为一个接口，其中实现的方法如下<br><img src="https://img-blog.csdnimg.cn/direct/e453a99cc8a24432a6cbdb69251c96d2.png#pic_center" alt="Factor类概况"><br>共有<strong>Num，Var，Expr，Exp，Func</strong>五个类实现了这个接口，分别表示<strong>常数，变量，表达式，指数函数，自定义函数</strong>。  </p>
+<h3 id="个人分析"><a href="#个人分析" class="headerlink" title="个人分析"></a>个人分析</h3><p>由于我个人认为<strong>计算</strong>这一任务应当是由客观主体完成的，而不是某个Factor的固有属性，因此我将创建了类<strong>Cal</strong>，并将所有的<strong>计算方法</strong>与<strong>计算的流程控制</strong>都放在了这个类中。这是我Cal类的代码量独占鳌头的原因，也是我的架构与其他许多同学不同的根本所在。<br>这样的设计导致我的项目内聚和耦合程度较低，每当加入了新的计算需求时我都需要在Cal类中新建一个计算方法，并对各个类型不同的Factor设计出一个独自的计算方法。如下图所示<br><img src="https://img-blog.csdnimg.cn/direct/e3e9f55ff1a24aa4813670b78e6fe9b6.png#pic_center" alt="计算方法示例"><br>现在重新回顾我的代码，我认为其他许多同学的“<strong>将计算抽象为Factor对象的方法</strong>”的设计比较好，可读性与可拓展性都比较高。<del>主要是hw1完成后，想着本来也就三次迭代，就懒地改架构了</del><br>但我认为这样的设计也有一定的优点，那就是主要都在Cal.java文件中进行项目迭代，定位Bug和新增需求比较方便。</p>
+<h2 id="程序bug分析"><a href="#程序bug分析" class="headerlink" title="程序bug分析"></a>程序bug分析</h2><p>由于本人在每次作业完成后都会与他人合作开发评测机，并使用该评测机对项目进行大量测试，因此实际上在强测和互测阶段出现的Bug并不多，这里我将我在评测过程中遇见的Bug和在强测中遭遇的Bug进行统一分析。  </p>
+<h3 id="深浅拷贝产生的Bug"><a href="#深浅拷贝产生的Bug" class="headerlink" title="深浅拷贝产生的Bug"></a>深浅拷贝产生的Bug</h3><p>在本次项目的三次迭代中，因深浅拷贝产生的Bug应该占据了所有Bug的百分之八十以上，而且此类Bug非常的“玄学”（？）。经常出现的情况就是：我在某个方法中改变了某个对象的属性，但是这一改变却导致某个看似与其八竿子打不着的对象的属性发生了变化，从而导致程序的崩溃或者输出错误。然而我在hw2中通过对部分方法进行重构很大程度上解决了这个问题，参见下文的项目迭代分析。</p>
+<h3 id="exp括号层数产生的Bug"><a href="#exp括号层数产生的Bug" class="headerlink" title="exp括号层数产生的Bug"></a>exp括号层数产生的Bug</h3><p>在第二次迭代中，我需要实现指数函数，其格式为exp((Expr))或者exp(Factor)，当exp内部为表达式时需要两层括号，而为因子时可以只用一层括号。出于对性能的追求，我在Exp类中精心设计了termsIsExpr()方法，以此判断某个指数函数的terms属性中是否是单个的因子。然而，由于本人对指导书的阅读不够仔细（<del>加之对自己的数学直觉过于自信</del>），我认为某个因子之前加一个负号“-”并不影响其作为一个因子。然而事实并非如此：除了常数外，其他的因子前为负号时均应当视作一个表达式。这导致我在hw2的强测中一个点出错，并在互测中取得了被hack14次的光辉战绩。</p>
+<h3 id="性能低下产生的Bug"><a href="#性能低下产生的Bug" class="headerlink" title="性能低下产生的Bug"></a>性能低下产生的Bug</h3><p>性能Bug主要出现在对表达式次幂的计算上。在hw1与hw2中，我对于表达式次幂的计算方法为“重复计算表达式八遍，并将其相乘”，这样会导致在表达式次幂的嵌套计算中时间复杂度指数级增长，例如对于数据((((x)^8)^8)^8)^8，我的程序的时间复杂度为8^4&#x3D;4096。如此高昂的时间复杂度使我无法通过hw2强测中的第二个点。<br>但是事实上，我并不需要计算如此多次。我可以将表达式的内容先算出来，在将其重复相乘其次幂的次数。例如((x+1)^2)^2，之前我的算法我会重复计算两边(x+1)^2，但改进算法之后，我只需要计算一遍(x+1)^2，再将这个结果相承。对于数据((((x)^8)^8)^8)^8，时间复杂度为4*8&#x3D;32，时间复杂度大大降低。  </p>
+<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><h3 id="hw1"><a href="#hw1" class="headerlink" title="hw1"></a>hw1</h3><p>在hw1中我已经为项目打好了大致框架，完成了表达式解析的全部内容，并实现了Num类，Var类，Expr类以及对应的计算方法，并在事实上支持表达式嵌套计算。但此时各个计算方法例如addTerms(), mergeTerms(), FactorMul()方法是直接对传入的Term对象的属性进行修改，而非返回一个新的Term对象，这就是我上文提到的我程序出现<strong>深浅拷贝Bug</strong>如此频繁的原因所在。  </p>
+<h3 id="hw2"><a href="#hw2" class="headerlink" title="hw2"></a>hw2</h3><p>在hw2中要求支持指数函数的计算和自定义函数的计算。在此次迭代中我深受“<strong>深浅拷贝</strong>”Bug折磨，于是对我的代码进行了<strong>大刀阔斧的重构</strong>，将之前所有<strong>直接对对象属性进行修改</strong>的方法统一改为<strong>返回一个新的对象</strong>。这样的重构使我基本上杜绝了之后再次产生“深浅拷贝”的可能性。<br>为了支持指数函数的计算，我面临的一个很大的问题是如何比较两个指数函数的指数是否相等。不同于其它大部分同学的“重写equals方法，然后进行递归比较“方法，我选择利用我hw1现成的getOutputString()方法，将指数函数的指数转化成符合输出格式要求的字符串，通过比较两个字符串来判断两个指数函数的指数是否相等。我原本认为这样写会导致我程序的性能降低，但在完成作业后与同学的交流过程中发现这样写不仅没有导致性能上的降低，甚至还领先于很多使用“重写equals”方法的同学，并且使我得以节省大量的工作量。<br>对于自定义函数的处理问题，不同于大部分同学的“进行预处理，在字符串层面将函数替换为表达式”的方法，出于将自定义函数因子的计算与其它因子的计算统一起来的考虑，我选择<strong>将表达式整体作为一个因子</strong>，在解析过程中通过Func类中的静态方法mark2IndependentVars()以及mark2Exp()建立函数名对形参，函数名对表达式的映射关系。并在计算过程中使用Func类中的getExpr()方法将自定义函数转化为表达式。<br>对于输出结果的化简问题，我出于对程序性能以及复杂度方面的考虑(<del>懒</del>)，选择“无脑”对指数函数的指数部分提取最大公因子，这样可以在性能与复杂度方面取得一个较好的平衡。  </p>
+<h3 id="hw3"><a href="#hw3" class="headerlink" title="hw3"></a>hw3</h3><p>总体而言，hw3的难度比hw1与hw2难度低了许多。我只需要支持自定义函数的嵌套以及求导因子。<br>对于自定义函数的嵌套，我在hw2中的架构已经实现了此功能，因此不多加赘述。<br>对于求导因子，我在Cal类中新建了方法takeDerivativeOfExpr()，以实现对表达式的求导。不同于上周三上机实验中课程组所给的“严格按照求导法则一步一步求导”的方法，我选择先将表达式的结果计算出来，并将其<strong>转化为a*x*exp(y)的基本项的形式，再对这些基本项进行求导</strong>。这样可以大大缩减求导所需的时间。（事实上，经本人实测，“无脑”使用课程组提供代码的人基本上都在性能上存在问题，我针对性地攻击性能“一抓一个准”）  </p>
+<h3 id="可拓展性分析"><a href="#可拓展性分析" class="headerlink" title="可拓展性分析"></a>可拓展性分析</h3><p>我自认为程序的可拓展性还算不错。这里以<strong>三角函数sin和cos</strong>为例分析程序可扩展性。<br>首先我需要新建类sin与cos，并实现接口Factor。然后在Token类的Type枚举中增加SIN和COS，在Lexer类中增加对sin与cos的解析，在Parser类中进一步将其解析成对应的因子，并完成表达式解析的过程。为了支持表达式计算，我需要在Cal类中修改基本项的内容，并增加相对应的计算方法。并修改getOutputString方法，以支持新的输出需求（说起来轻松，但实际实现起来轻不轻松就不知道了……）。</p>
+<h2 id="hack策略"><a href="#hack策略" class="headerlink" title="hack策略"></a>hack策略</h2><h3 id="以攻击程序漏洞为目的的hack"><a href="#以攻击程序漏洞为目的的hack" class="headerlink" title="以攻击程序漏洞为目的的hack"></a>以攻击程序漏洞为目的的hack</h3><p>说实话，我个人认为课程组设置互测环节的本意可能是想让我们阅读他人代码，在比较与学习中提高面向对象编程的能力。但是经过本人实测，用评测机，生成大量数据进行轰炸才是找出他人Bug的最优策略。从hw1到hw3，我使用评测机轰炸的方法基本上找出了房间内被找出的除了性能问题以外的所有Bug。在使用评测机找出错误数据之后再进行Bug定位，找出Bug产生的原因，并尽量简化能使程序产生Bug的数据，这样既可以提高自身的阅读代码水平，又便于程序出现Bug的同学快速定位Bug产生的原因。  </p>
+<h3 id="以攻击程序性能为目的的hack"><a href="#以攻击程序性能为目的的hack" class="headerlink" title="以攻击程序性能为目的的hack"></a>以攻击程序性能为目的的hack</h3><p>为了攻击程序性能，首先要仔细阅读指导书的输入格式要求和cost要求，然后在不超过cost的前提下捏造一个尽可能复杂的数据。例如在hw2中我捏造了数据((x^8+x^7+x^3+x^2)^2)^3和(((x+1)^2)^2)^3这两个数据，它们的cost都是4096。而在hw3中我捏造了多重exp嵌套，并在最外层进行求导的数据，并达成了三杀的丰功伟绩。  </p>
+<h2 id="优化分析"><a href="#优化分析" class="headerlink" title="优化分析"></a>优化分析</h2><p>秉持着“能懒则懒”的原则，我在项目迭代中只进行了一次优化，那就是在hw2强测中因为性能问题未通过第二个点之后进行了优化算法，具体优化方法见上文Bug分析部分。</p>
+<h2 id="心得体会"><a href="#心得体会" class="headerlink" title="心得体会"></a>心得体会</h2><p>我本以为上学期的CO已经是地狱，没想到只是地狱开始。<del>我为跨过一条小河而沾沾自喜，但却没想到跨国小河后横杵在我面前的是一望无际的汪洋</del>。一开学就如此高强度，这在我十余年的求学生涯中前所未有。高强度码代码和高强度测试更是让我每周都无比充实。但是平心而论，我还蛮享受这个过程的，让我每天都拥有明确目标，在周一晚上看到自己强测通过所带来的爽快感更是前所未有的。<br>以及，<strong>一定要认真看指导书！！！！</strong>  </p>
+<h2 id="未来方向"><a href="#未来方向" class="headerlink" title="未来方向"></a>未来方向</h2><p>这里本人提几个建议：</p>
+<h3 id="适当修改各次作业的任务量"><a href="#适当修改各次作业的任务量" class="headerlink" title="适当修改各次作业的任务量"></a>适当修改各次作业的任务量</h3><p>说实话，比起前两次作业动辄两三天的任务量，第三次作业我只用了两个小时便完成了，为了平衡任务量，我认为可以将第二次作业的自定义函数部分移到第三次作业进行实现。这样既可以保证作业的连续性，又可以平衡各次作业的时间。  </p>
+<h3 id="明确强测的数据强度"><a href="#明确强测的数据强度" class="headerlink" title="明确强测的数据强度"></a>明确强测的数据强度</h3><p>为什么互测有数据明确的数据强度限制，但是强测的数据强度限制却不公布出来。我一直不能理解这一点。就比如hw2强测的第二个数据点，很明显它远远超出互测的数据强度限制。不明确的数据强度限制会给同学们带来误导，使同学们找不到优化的目标。</p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/03/24/first-blog/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">第一篇博客</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://img2.imgtp.com/2024/03/24/raELZb1u.jpg" class="soft-size--round soft-style--box" alt="谜之取名">
+    
+    
+      <h2>谜之取名</h2>
+    
+    
+      <p>在摆烂和卷之间举棋不定</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>2</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        2
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        3
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+<section class="widget-toc widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-toc" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M134.50666666 767.46666668H460.8c27.73333333 0 50.24000001 22.50666668 50.24000001 50.23999999v50.13333333c0 27.73333333-22.50666668 50.24000001-50.24000001 50.24000001H134.50666666c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.24000001v-50.13333333c0.10666668-27.73333333 22.50666668-50.24000001 50.24000001-50.24000001zM84.37333332 541.65333333h326.18666669c27.73333333 0 50.24000001 22.39999999 50.23999999 50.13333334v50.24000001c0 27.73333333-22.50666668 50.24000001-50.24000002 50.23999999H84.37333332c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.23999999v-50.24000001c0-27.73333333 22.50666668-50.13333334 50.24000001-50.13333334zM134.50666666 315.83999999H460.8c27.73333333 0 50.24000001 22.50666668 50.24000001 50.24000001v50.24000001c0 27.73333333-22.50666668 50.13333334-50.24000001 50.13333333H134.50666666c-27.73333333 0-50.24000001-22.39999999-50.23999999-50.13333333v-50.24000001c0.10666668-27.84000001 22.50666668-50.24000001 50.24000001-50.23999999zM209.81333332 89.91999999h326.18666671c27.73333333 0 50.24000001 22.39999999 50.23999997 50.13333335v50.23999999c0 27.73333333-22.50666668 50.24000001-50.24000001 50.24000001H209.81333332c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.24000001v-50.24000001c0-27.73333333 22.50666668-50.13333334 50.24000001-50.13333333zM692.05333333 623.36l274.66666669 176.00000002c23.36000001 14.93333333 30.08 45.97333334 15.14666666 69.33333332L954.77333334 910.93333333c-14.93333333 23.25333334-45.97333334 30.08-69.33333335 15.14666667l-274.66666666-176c-23.36000001-14.93333333-30.08-45.97333334-15.14666667-69.33333333l27.09333334-42.24000001c14.93333333-23.36000001 46.08000001-30.08 69.33333333-15.14666666z" fill="currentColor"></path>
+</svg>
+    <span>TOC</span>
+  </div>
+  <div class="widget-body">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%A6%82%E5%86%B5"><span class="toc-number">2.</span> <span class="toc-text">程序概况</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%A7%A3%E6%9E%90%E6%96%B9%E9%9D%A2"><span class="toc-number">2.1.</span> <span class="toc-text">表达式解析方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%A1%E7%AE%97%E6%96%B9%E9%9D%A2"><span class="toc-number">2.2.</span> <span class="toc-text">表达式计算方面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E5%88%86%E6%9E%90"><span class="toc-number">2.3.</span> <span class="toc-text">个人分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8Fbug%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">程序bug分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%BA%A7%E7%94%9F%E7%9A%84Bug"><span class="toc-number">3.1.</span> <span class="toc-text">深浅拷贝产生的Bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp%E6%8B%AC%E5%8F%B7%E5%B1%82%E6%95%B0%E4%BA%A7%E7%94%9F%E7%9A%84Bug"><span class="toc-number">3.2.</span> <span class="toc-text">exp括号层数产生的Bug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E4%BD%8E%E4%B8%8B%E4%BA%A7%E7%94%9F%E7%9A%84Bug"><span class="toc-number">3.3.</span> <span class="toc-text">性能低下产生的Bug</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text">架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hw1"><span class="toc-number">4.1.</span> <span class="toc-text">hw1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hw2"><span class="toc-number">4.2.</span> <span class="toc-text">hw2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hw3"><span class="toc-number">4.3.</span> <span class="toc-text">hw3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E6%8B%93%E5%B1%95%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-number">4.4.</span> <span class="toc-text">可拓展性分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hack%E7%AD%96%E7%95%A5"><span class="toc-number">5.</span> <span class="toc-text">hack策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E6%94%BB%E5%87%BB%E7%A8%8B%E5%BA%8F%E6%BC%8F%E6%B4%9E%E4%B8%BA%E7%9B%AE%E7%9A%84%E7%9A%84hack"><span class="toc-number">5.1.</span> <span class="toc-text">以攻击程序漏洞为目的的hack</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E6%94%BB%E5%87%BB%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD%E4%B8%BA%E7%9B%AE%E7%9A%84%E7%9A%84hack"><span class="toc-number">5.2.</span> <span class="toc-text">以攻击程序性能为目的的hack</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E5%88%86%E6%9E%90"><span class="toc-number">6.</span> <span class="toc-text">优化分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A"><span class="toc-number">7.</span> <span class="toc-text">心得体会</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E6%96%B9%E5%90%91"><span class="toc-number">8.</span> <span class="toc-text">未来方向</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E5%BD%93%E4%BF%AE%E6%94%B9%E5%90%84%E6%AC%A1%E4%BD%9C%E4%B8%9A%E7%9A%84%E4%BB%BB%E5%8A%A1%E9%87%8F"><span class="toc-number">8.1.</span> <span class="toc-text">适当修改各次作业的任务量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%8E%E7%A1%AE%E5%BC%BA%E6%B5%8B%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BC%BA%E5%BA%A6"><span class="toc-number">8.2.</span> <span class="toc-text">明确强测的数据强度</span></a></li></ol></li></ol>
+  </div>
+</section>
+
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%90%90%E8%AE%B0/">
+            琐记 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/">
+            学习 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/OO/" style="font-size: 10px;" class="tags-cloud-0">OO</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;" class="tags-cloud-0">学习</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;" class="tags-cloud-0">日常</a>
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/miiiku/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+          <a href="https://twitter.com/guanquanhong" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-twitter" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M962.285714 233.142857q-38.285714 56-92.571429 95.428571 0.571429 8 0.571429 24 0 74.285714-21.714286 148.285714t-66 142-105.428571 120.285714-147.428571 83.428571-184.571429 31.142857q-154.857143 0-283.428571-82.857143 20 2.285714 44.571429 2.285714 128.571429 0 229.142857-78.857143-60-1.142857-107.428571-36.857143t-65.142857-91.142857q18.857143 2.857143 34.857143 2.857143 24.571429 0 48.571429-6.285714-64-13.142857-106-63.714286t-42-117.428571l0-2.285714q38.857143 21.714286 83.428571 23.428571-37.714286-25.142857-60-65.714286t-22.285714-88q0-50.285714 25.142857-93.142857 69.142857 85.142857 168.285714 136.285714t212.285714 56.857143q-4.571429-21.714286-4.571429-42.285714 0-76.571429 54-130.571429t130.571429-54q80 0 134.857143 58.285714 62.285714-12 117.142857-44.571429-21.142857 65.714286-81.142857 101.714286 53.142857-5.714286 106.285714-28.571429z"></path>
+</svg>
+          </a>
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">mysterious-name</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+<!-- copy button  -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+<!-- https://clipboardjs.com/ -->
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>

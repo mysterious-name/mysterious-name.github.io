@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6"/>
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+  
+  <meta name="generator" content="Hexo 7.1.1">
+
+  
+
+  
+
+  
+    <meta name="author" content="mysterious-name">
+  
+
+  
+
+  
+
+  <title>OS_lab4 | 谜之取名</title>
+
+  
+
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+
+  <!--mathjax latex数学公式显示支持-->
+  
+  
+
+  
+
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+  <div class="root-container">
+    
+<!-- header container -->
+<header class="header-container post">
+  
+    <div class="post-image" style="background-image: url(https://img2.imgtp.com/2024/03/24/eLFeb0N9.png)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          谜之取名
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/library">资源库</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">OS_lab4</h1>
+          <h2 class="title-sub-wrap">
+            <strong>mysterious-name</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-04-21T06:11:14.000Z" itemprop="datePublished">2024-04-21</time>
+          </h2>
+          
+          
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/%E5%AD%A6%E4%B9%A0/">📒 学习</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/tags/%E5%AD%A6%E4%B9%A0/">🏷️ 学习</a></li>
+  
+    <li><a href="/tags/OS/">🏷️ OS</a></li>
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+    <!-- 文章 -->
+
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="Lab4实验报告"><a href="#Lab4实验报告" class="headerlink" title="Lab4实验报告"></a>Lab4实验报告</h1><h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><h3 id="Thinking-4-1"><a href="#Thinking-4-1" class="headerlink" title="Thinking 4.1"></a>Thinking 4.1</h3><ul>
+<li>内核在保存现场时会将通用寄存器的值进行压栈，进而保存所有通用寄存器的值。  </li>
+<li>可以直接从$a0-$a3读取得到<code>msyscall</code>的信息，因为内核在保存现场时并不会破坏除了少数几个保留寄存器以外的寄存器的值。  </li>
+<li>sys开头的函数获取参数依赖于栈和$a0-$a3寄存器，我们只需要保证$a0-$a3寄存器的参数的正确性以及栈传递参数的正确性，就可以使sys开头的函数“认为”我们提供了和用户调用<code>msyscall</code>同样的参数。</li>
+<li>修改了<code>Trapframe</code>中的$v0寄存器，用于传递系统调用的返回值。</li>
+</ul>
+<h3 id="Thinking-4-2"><a href="#Thinking-4-2" class="headerlink" title="Thinking 4.2"></a>Thinking 4.2</h3><p>在通过索引取<code>envs</code>数组中的第”<code>envid</code>“个进程时，只依据<code>envid</code>的后十位。但是要判断<code>id</code>是否等于<code>envid</code>，仅仅取后十位是不够的，因此需要再次进行<code>e-&gt;envid != envid</code>的判断。  </p>
+<h3 id="Thinking-4-3"><a href="#Thinking-4-3" class="headerlink" title="Thinking 4.3"></a>Thinking 4.3</h3><ul>
+<li>对于<code>envid2env</code>，由于<code>mkenvid</code>的返回值肯定不为零，因此可以通过判断<code>envid</code>是否为零来判断返回对应id的<code>env</code>还是<code>curenv</code>  </li>
+<li>对于IPC，如果传入的<code>mkenvid</code>为零，则由代码</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Step 4: Set the target&#x27;s ipc fields. */</span></span><br><span class="line">e-&gt;env_ipc_value = value;</span><br><span class="line">e-&gt;env_ipc_from = curenv-&gt;env_id;</span><br><span class="line">e-&gt;env_ipc_perm = PTE_V | perm;</span><br><span class="line">e-&gt;env_ipc_recving = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可知，最终效果是自己将消息传递给自己，不会对程序运行造成影响。  </p>
+<h3 id="Thinking-4-4"><a href="#Thinking-4-4" class="headerlink" title="Thinking 4.4"></a>Thinking 4.4</h3>
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/04/21/E1pm71bV.png" alt="课件图片" loading="lazy" />
+      <figcaption>课件图片</figcaption>
+    </figure>
+  
+
+<p>可知答案为C。  </p>
+<h3 id="Thinking-4-5"><a href="#Thinking-4-5" class="headerlink" title="Thinking 4.5"></a>Thinking 4.5</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">o      </span></span><br><span class="line"><span class="comment">o      ULIM     -----&gt; +----------------------------+------------0x8000 0000-------</span></span><br><span class="line"><span class="comment">o                      |         User VPT           |     PDMAP                /|\</span></span><br><span class="line"><span class="comment">o      UVPT     -----&gt; +----------------------------+------------0x7fc0 0000    |</span></span><br><span class="line"><span class="comment">o                      |           pages            |     PDMAP                 |</span></span><br><span class="line"><span class="comment">o      UPAGES   -----&gt; +----------------------------+------------0x7f80 0000    |</span></span><br><span class="line"><span class="comment">o                      |           envs             |     PDMAP                 |</span></span><br><span class="line"><span class="comment">o  UTOP,UENVS   -----&gt; +----------------------------+------------0x7f40 0000    |</span></span><br><span class="line"><span class="comment">o  UXSTACKTOP -/       |     user exception stack   |     PTMAP                 |</span></span><br><span class="line"><span class="comment">o                      +----------------------------+------------0x7f3f f000    |</span></span><br><span class="line"><span class="comment">o                      |                            |     PTMAP                 |</span></span><br><span class="line"><span class="comment">o      USTACKTOP ----&gt; +----------------------------+------------0x7f3f e000    |</span></span><br><span class="line"><span class="comment">o                      |     normal user stack      |     PTMAP                 |</span></span><br><span class="line"><span class="comment">o                      +----------------------------+------------0x7f3f d000    |</span></span><br><span class="line"><span class="comment">a                      |                            |                           |</span></span><br><span class="line"><span class="comment">a                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                           |</span></span><br><span class="line"><span class="comment">a                      .                            .                           |</span></span><br><span class="line"><span class="comment">a                      .                            .                         kuseg</span></span><br><span class="line"><span class="comment">a                      .                            .                           |</span></span><br><span class="line"><span class="comment">a                      |~~~~~~~~~~~~~~~~~~~~~~~~~~~~|                           |</span></span><br><span class="line"><span class="comment">a                      |                            |                           |</span></span><br><span class="line"><span class="comment">o       UTEXT   -----&gt; +----------------------------+------------0x0040 0000    |</span></span><br><span class="line"><span class="comment">o                      |      reserved for COW      |     PTMAP                 |</span></span><br><span class="line"><span class="comment">o       UCOW    -----&gt; +----------------------------+------------0x003f f000    |</span></span><br><span class="line"><span class="comment">o                      |   reversed for temporary   |     PTMAP                 |</span></span><br><span class="line"><span class="comment">o       UTEMP   -----&gt; +----------------------------+------------0x003f e000    |</span></span><br><span class="line"><span class="comment">o                      |       invalid memory       |                          \|/</span></span><br><span class="line"><span class="comment">a     0 ------------&gt;  +----------------------------+ ----------------------------</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>由内存图可知：</p>
+<ul>
+<li>UXSTACKTOP以上不会映射，因为以上是系统空间；</li>
+<li>UXSTACKTOP到USTACKTOP之间不会映射，因为这一段用于用户进程的异常处理；</li>
+<li>UTEXT到USTACKTOP之间的所有可写且未共享的页面都需要映射。</li>
+</ul>
+<h3 id="Thinking-4-6"><a href="#Thinking-4-6" class="headerlink" title="Thinking 4.6"></a>Thinking 4.6</h3><ul>
+<li><code>vpt</code>和<code>vpd</code>是用户空间进程对应的页表起始地址和页目录起始地址，可以直接以数组的形式使用。如<code>vpd[12]</code>表示页目录下的第12号页目录项  ；</li>
+<li>因为<code>vpt</code>和<code>vpd</code>是已经被宏定义的用户态页面起始地址和页目录起始地址，进程可以直接通过这个宏定义外加偏移量进行使用；</li>
+<li><code>vpd</code>的定义如下</li>
+</ul>
+
+    <figure class="figure-image">
+      <img src="https://img2.imgtp.com/2024/04/21/OqyftlxV.png" alt="课件图片" loading="lazy" />
+      <figcaption>课件图片</figcaption>
+    </figure>
+  
+
+<p>由此可知<code>vpd</code>的取值是由<code>UVPT + PDX(UVPT) &lt;&lt; PHSGIFT</code>获得的，这体现了页表自映射的原理。  </p>
+<ul>
+<li>不能，因为在<code>vpt</code>和<code>vpd</code>的宏定义中都使用了<code>const</code>关键字进行修饰，因此进程不能通过这种方式修改自己的页表项。</li>
+</ul>
+<h3 id="Thinking-4-7"><a href="#Thinking-4-7" class="headerlink" title="Thinking 4.7"></a>Thinking 4.7</h3><ul>
+<li>在发生异常、处理异常的过程中可能再次发生异常，此时就需要“异常重入”；</li>
+<li>由<code>do_tlb_mod</code>函数的<code>overview</code>可知，在我们的MOS操作系统中，对缺页异常的处理是在用户态完成的，因此需要将异常的现场复制到用户空间。</li>
+</ul>
+<h3 id="Thinking-4-8"><a href="#Thinking-4-8" class="headerlink" title="Thinking 4.8"></a>Thinking 4.8</h3><p>满足”微内核”的要求，即使处理过程中出现了异常也不会导致整个操作系统的崩溃。  </p>
+<h3 id="Thinking-4-9"><a href="#Thinking-4-9" class="headerlink" title="Thinking 4.9"></a>Thinking 4.9</h3><ul>
+<li>因为<code>syscall_exofork</code>也可能要处理这种异常；</li>
+<li>给 <code>env_user_tlb_mod</code> 赋值时发生缺页中断，但是中断处理还未设置；</li>
+</ul>
+<h2 id="难点分析"><a href="#难点分析" class="headerlink" title="难点分析"></a>难点分析</h2><h3 id="一、对用户态、内核态的区分界定不清"><a href="#一、对用户态、内核态的区分界定不清" class="headerlink" title="一、对用户态、内核态的区分界定不清"></a>一、对用户态、内核态的区分界定不清</h3><p>在本次实验中，我们需要区分使用系统调用函数和其它函数，我本人也时常混淆这两者的使用而导致错误。例如将<code>sys_mem_alloc</code>错用为<code>alloc</code>。  </p>
+<p>总的来说，在进程的运行过程中必须使用系统调用函数，因为进程自身并无法直接进入内核态进行操作，必须通过系统调用函数间接地对内核进行操作。  </p>
+<h3 id="二、对duppage函数的使用"><a href="#二、对duppage函数的使用" class="headerlink" title="二、对duppage函数的使用"></a>二、对<code>duppage</code>函数的使用</h3><p>在Exercise 4.10中需要填写以下代码  </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Step 2: If the page is writable, and not shared with children, and not marked as COW yet,</span></span><br><span class="line"><span class="comment"> * then map it as copy-on-write, both in the parent (0) and the child (envid). */</span></span><br><span class="line"><span class="comment">/* Hint: The page should be first mapped to the child before remapped in the parent. (Why?)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/* Exercise 4.10: Your code here. (2/2) */</span></span><br><span class="line"><span class="type">int</span> flag = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> ((perm &amp; PTE_D) &amp;&amp; !(perm &amp; PTE_LIBRARY)) &#123;</span><br><span class="line">	perm = (perm &amp; ~ PTE_D) | PTE_COW;</span><br><span class="line">	flag = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">syscall_mem_map(<span class="number">0</span>, addr, envid, addr, perm);</span><br><span class="line"><span class="keyword">if</span> (flag) &#123;</span><br><span class="line">	syscall_mem_map(<span class="number">0</span>, addr, <span class="number">0</span>, addr, perm);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实不管<code>perm</code>如何，都需要对子进程进行内存空间的映射。只是如果<code>perm</code>满足”<code>If the page is writable, and not shared with children, and not marked as COW yet</code>“，则需要重写写入有效位，并且对父进程有效位进行修改（<del>虽然我觉得这个题目描述很容易让人产生误解</del>）  </p>
+<h3 id="三、对异常处理的前置流程理解不够透彻"><a href="#三、对异常处理的前置流程理解不够透彻" class="headerlink" title="三、对异常处理的前置流程理解不够透彻"></a>三、对异常处理的前置流程理解不够透彻</h3><p>在<code>cow_entry</code>中有如下代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Step 3: Allocate a new page at &#x27;UCOW&#x27;. */</span></span><br><span class="line"><span class="comment">/* Exercise 4.13: Your code here. (3/6) */</span></span><br><span class="line">syscall_mem_alloc(<span class="number">0</span>, (<span class="type">void</span> *)UCOW, perm);</span><br><span class="line"><span class="comment">/* Step 4: Copy the content of the faulting page at &#x27;va&#x27; to &#x27;UCOW&#x27;. */</span></span><br><span class="line"><span class="comment">/* Hint: &#x27;va&#x27; may not be aligned to a page! */</span></span><br><span class="line"><span class="comment">/* Exercise 4.13: Your code here. (4/6) */</span></span><br><span class="line"><span class="built_in">memcpy</span>((<span class="type">void</span> *)UCOW, (<span class="type">void</span> *)ROUNDDOWN(va, PAGE_SIZE), PAGE_SIZE);</span><br><span class="line"><span class="comment">// Step 5: Map the page at &#x27;UCOW&#x27; to &#x27;va&#x27; with the new &#x27;perm&#x27;.</span></span><br><span class="line"><span class="comment">/* Exercise 4.13: Your code here. (5/6) */</span></span><br><span class="line">syscall_mem_map(<span class="number">0</span>, (<span class="type">void</span> *)UCOW, <span class="number">0</span>, (<span class="type">void</span> *)va, perm);</span><br><span class="line"><span class="comment">// Step 6: Unmap the page at &#x27;UCOW&#x27;.</span></span><br><span class="line"><span class="comment">/* Exercise 4.13: Your code here. (6/6) */</span></span><br><span class="line">syscall_mem_unmap(<span class="number">0</span>, (<span class="type">void</span> *)UCOW);</span><br><span class="line"><span class="comment">// Step 7: Return to the faulting routine.</span></span><br><span class="line"><span class="type">int</span> r = syscall_set_trapframe(<span class="number">0</span>, tf);</span><br><span class="line">user_panic(<span class="string">&quot;syscall_set_trapframe returned %d&quot;</span>, r);</span><br></pre></td></tr></table></figure>
+
+<p>最开始写这部分的时候我就很不能理解，为什么刚通过<code>syscall_mem_map</code>建立映射，紧接着又要用<code>syscall_mem_unmap</code>解除映射。  </p>
+<p>但事实上，这里<code>map</code>和<code>unmap</code>的映射不是同一个，具体过程应该是：</p>
+<ol>
+<li><strong>Step 3</strong>: 代码使用 <code>syscall_mem_alloc</code> 在地址 <code>UCOW</code> 处分配了一个新的页面，并使用了指定的权限 <code>perm</code>。</li>
+<li><strong>Step 4</strong>: 然后，代码使用 <code>memcpy</code> 将触发页面错误的地址 <code>va</code> 处页面的内容复制到刚分配的页面中，即 <code>UCOW</code> 处。</li>
+<li><strong>Step 5</strong>: 接下来，代码使用 <code>syscall_mem_map</code> 将新分配的页面映射到原先触发页面错误的地址 <code>va</code> 处，并使用了新的权限 <code>perm</code>。</li>
+<li><strong>Step 6</strong>: 一旦页面映射完成，代码立即使用 <code>syscall_mem_unmap</code> 解除了 <code>UCOW</code> 处页面的映射。这样做的目的是为了确保该页面只有在触发页面错误时才会被映射，而在修复页面错误后立即解除映射，以防止该页面被错误地访问。</li>
+<li>最后，代码使用 <code>syscall_set_trapframe</code> 设置了陷阱帧，然后通过 <code>user_panic</code> 报告了任何错误并终止了用户进程。</li>
+</ol>
+<p>也就是说，<code>syscall_mem_map</code>是建立新分配页面到<code>va</code>的映射，而<code>syscall_mem_unmap</code>是解除原本<code>UCOW</code>处页面具有的映射。  </p>
+<h2 id="实验体会"><a href="#实验体会" class="headerlink" title="实验体会"></a>实验体会</h2><p><strong>目前为止最难的一个lab!!!!!!!!!!!!!!</strong>  </p>
+<p>感觉潜规则也太多了，需要考虑的情况也太多了，而且这些需要考虑的情况与之前几个lab的内容息息相关，我需要时不时回顾前几个lab的内容以填写正确的代码。  </p>
+<p>感觉许多注释没什么用呢，关键的需要考虑的几种情况都没有点出来（<del>好歹暗示一下也行啊 orz</del>）  </p>
+<p>而且在用户态无法使用<code>printk</code>进行调试也是一个大问题（虽然我知道课程组推荐使用qemu + gdb调试，但是好难根本学不会啊，而且我感觉绝大多数情况下也没有<code>printk</code>调试大法好用啊）.</p>
+<p>据说以后难度会更高，绝望~~~~~~~（来自一个菜鸡的悲鸣）</p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/04/07/OS-lab3/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">OS_lab3</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="https://img2.imgtp.com/2024/03/24/raELZb1u.jpg" class="soft-size--round soft-style--box" alt="谜之取名">
+    
+    
+      <h2>谜之取名</h2>
+    
+    
+      <p>在摆烂和卷之间举棋不定</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>8</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        2
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        4
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+<section class="widget-toc widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-toc" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M134.50666666 767.46666668H460.8c27.73333333 0 50.24000001 22.50666668 50.24000001 50.23999999v50.13333333c0 27.73333333-22.50666668 50.24000001-50.24000001 50.24000001H134.50666666c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.24000001v-50.13333333c0.10666668-27.73333333 22.50666668-50.24000001 50.24000001-50.24000001zM84.37333332 541.65333333h326.18666669c27.73333333 0 50.24000001 22.39999999 50.23999999 50.13333334v50.24000001c0 27.73333333-22.50666668 50.24000001-50.24000002 50.23999999H84.37333332c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.23999999v-50.24000001c0-27.73333333 22.50666668-50.13333334 50.24000001-50.13333334zM134.50666666 315.83999999H460.8c27.73333333 0 50.24000001 22.50666668 50.24000001 50.24000001v50.24000001c0 27.73333333-22.50666668 50.13333334-50.24000001 50.13333333H134.50666666c-27.73333333 0-50.24000001-22.39999999-50.23999999-50.13333333v-50.24000001c0.10666668-27.84000001 22.50666668-50.24000001 50.24000001-50.23999999zM209.81333332 89.91999999h326.18666671c27.73333333 0 50.24000001 22.39999999 50.23999997 50.13333335v50.23999999c0 27.73333333-22.50666668 50.24000001-50.24000001 50.24000001H209.81333332c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.24000001v-50.24000001c0-27.73333333 22.50666668-50.13333334 50.24000001-50.13333333zM692.05333333 623.36l274.66666669 176.00000002c23.36000001 14.93333333 30.08 45.97333334 15.14666666 69.33333332L954.77333334 910.93333333c-14.93333333 23.25333334-45.97333334 30.08-69.33333335 15.14666667l-274.66666666-176c-23.36000001-14.93333333-30.08-45.97333334-15.14666667-69.33333333l27.09333334-42.24000001c14.93333333-23.36000001 46.08000001-30.08 69.33333333-15.14666666z" fill="currentColor"></path>
+</svg>
+    <span>TOC</span>
+  </div>
+  <div class="widget-body">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">思考题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-1"><span class="toc-number">1.1.</span> <span class="toc-text">Thinking 4.1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-2"><span class="toc-number">1.2.</span> <span class="toc-text">Thinking 4.2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-3"><span class="toc-number">1.3.</span> <span class="toc-text">Thinking 4.3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-4"><span class="toc-number">1.4.</span> <span class="toc-text">Thinking 4.4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-5"><span class="toc-number">1.5.</span> <span class="toc-text">Thinking 4.5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-6"><span class="toc-number">1.6.</span> <span class="toc-text">Thinking 4.6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-7"><span class="toc-number">1.7.</span> <span class="toc-text">Thinking 4.7</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-8"><span class="toc-number">1.8.</span> <span class="toc-text">Thinking 4.8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Thinking-4-9"><span class="toc-number">1.9.</span> <span class="toc-text">Thinking 4.9</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%BE%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">难点分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AF%B9%E7%94%A8%E6%88%B7%E6%80%81%E3%80%81%E5%86%85%E6%A0%B8%E6%80%81%E7%9A%84%E5%8C%BA%E5%88%86%E7%95%8C%E5%AE%9A%E4%B8%8D%E6%B8%85"><span class="toc-number">2.1.</span> <span class="toc-text">一、对用户态、内核态的区分界定不清</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AF%B9duppage%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.2.</span> <span class="toc-text">二、对duppage函数的使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%AF%B9%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%9A%84%E5%89%8D%E7%BD%AE%E6%B5%81%E7%A8%8B%E7%90%86%E8%A7%A3%E4%B8%8D%E5%A4%9F%E9%80%8F%E5%BD%BB"><span class="toc-number">2.3.</span> <span class="toc-text">三、对异常处理的前置流程理解不够透彻</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E4%BD%93%E4%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">实验体会</span></a></li></ol>
+  </div>
+</section>
+
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%90%90%E8%AE%B0/">
+            琐记 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0/">
+            学习 (6)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/OO/" style="font-size: 10px;" class="tags-cloud-0">OO</a> <a href="/tags/OS/" style="font-size: 16.67px;" class="tags-cloud-7">OS</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;" class="tags-cloud-10">学习</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 13.33px;" class="tags-cloud-3">日常</a>
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+    <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+     
+    <p>&copy; 2024 <a href="/" target="_blank">mysterious-name</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
+      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
+      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
+    </svg>
+  </div>
+
+  
+  <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+<!-- copy button  -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+<!-- https://clipboardjs.com/ -->
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+  <!-- 尾部用户自定义相关内容 -->
+</body>
+</html>
